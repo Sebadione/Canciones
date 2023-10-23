@@ -35,7 +35,7 @@ public class ArtistServiceImpl implements ArtistService{
     @Transactional
     public Artist create(String name) {
         val artistId = identifierRepository.nextValue(Artist.TABLE_NAME);
-        return new Artist(artistId, name);
+        return artistRepository.save(new Artist(artistId, name));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ArtistServiceImpl implements ArtistService{
     @Override
     @Transactional
     public void update(Integer id, String name) {
-        val artist =artistRepository.findById(id)
+        val artist = artistRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Artist not found"));
         artist.update(name);
         artistRepository.save(artist);

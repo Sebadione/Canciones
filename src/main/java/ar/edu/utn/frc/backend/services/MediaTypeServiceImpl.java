@@ -33,8 +33,8 @@ public class MediaTypeServiceImpl implements MediaTypeService{
     @Override
     public MediaType create(String name) {
         val mediaTypeId = identifierRepository.nextValue(MediaType.TABLE_NAME);
-
-        return new MediaType();
+        val mediaType = new MediaType(mediaTypeId, name);
+        return mediaTypeRepository.save(mediaType);
     }
 
     @Override

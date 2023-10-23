@@ -29,6 +29,9 @@ public class Genre {
         this.name = name;
     }
 
+    public Genre() {
+    }
+
     public void update(String name) {
         this.name = name;
     }

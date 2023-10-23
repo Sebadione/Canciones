@@ -35,7 +35,8 @@ public class PlaylistServiceImpl implements PlaylistService{
     @Transactional
     public Playlist create(String name) {
         val playlistId = identifierRepository.nextValue(Playlist.TABLE_NAME);
-        return new Playlist(playlistId, name);
+        val playlist = new Playlist(playlistId, name);
+        return playlistRepository.save(playlist);
     }
 
     @Override

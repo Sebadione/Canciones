@@ -36,7 +36,8 @@ public class GenreServiceImpl implements GenreService{
     @Transactional
     public Genre create(String name) {
         val genreId = identifierRepository.nextValue(Genre.TABLE_NAME);
-        return new Genre(genreId, name);
+        val genre = new Genre(genreId, name);
+        return genreRepository.save(genre);
     }
 
     @Override

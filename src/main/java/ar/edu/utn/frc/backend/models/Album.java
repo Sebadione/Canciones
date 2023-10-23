@@ -16,7 +16,7 @@ public class Album {
     public static final String TABLE_NAME = "albums";
 
     @Id
-    @Column(name = "albumId")
+    @Column(name = "AlbumId")
     Integer id;
 
     String title;
