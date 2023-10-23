@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,6 +26,10 @@ public class Album {
     @OneToOne
     @JoinColumn(name = "ArtistId")
     Artist artist;
+
+    @OneToMany
+    @JoinColumn(name = "AlbumId")
+    private List<Track> tracks;
 
     public Album(Integer id, String title, Artist artist) {
         this.id = id;

@@ -23,7 +23,7 @@ public class Track {
 
     String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "AlbumId")
     Album album;
 

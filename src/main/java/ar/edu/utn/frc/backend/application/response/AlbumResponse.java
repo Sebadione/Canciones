@@ -20,11 +20,14 @@ public class AlbumResponse {
 
     String artistName;
 
+    List<TrackResponse> tracks;
+
     public static AlbumResponse from(Album album) {
         return AlbumResponse.builder()
                 .id(album.getId())
                 .title(album.getTitle())
                 .artistName(album.getArtist().getName())
+                .tracks(album.getTracks().stream().map(TrackResponse::from).toList())
                 .build();
     }
 }
