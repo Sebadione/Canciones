@@ -1,5 +1,7 @@
 package ar.edu.utn.frc.backend.services;
 
+import ar.edu.utn.frc.backend.models.Artist;
+import ar.edu.utn.frc.backend.models.Genre;
 import ar.edu.utn.frc.backend.models.MediaType;
 import ar.edu.utn.frc.backend.models.Track;
 import ar.edu.utn.frc.backend.repositories.AlbumRepository;
@@ -24,6 +26,7 @@ public class TrackServiceImpl implements TrackService {
     AlbumService albumService;
     MediaTypeService mediaTypeService;
     GenreService genreService;
+    ArtistService artistService;
 
     @Override
     public List<Track> findAll() {
@@ -33,6 +36,15 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public Optional<Track> findById(Integer id) {
         return trackRepository.findById(id);
+    }
+
+    @Override
+    public List<Track> findAllByAlbum_ArtistAndGenre(int artistId, int genreId) {
+        val genre = genreService.findById(genreId)
+                .orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+        val artist = artistService.findById(artistId)
+                .orElseThrow(() -> new IllegalArgumentException("Artist not found"));
+        return trackRepository.findAllByAlbum_ArtistAndGenre(artist, genre);
     }
 
     @Override

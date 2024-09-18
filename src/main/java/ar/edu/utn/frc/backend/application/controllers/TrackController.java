@@ -21,17 +21,33 @@ public class TrackController {
     TrackService trackService;
 
     @GetMapping
-    public ResponseEntity<Object> findAll() {
-        try {
-            val tracks = trackService.findAll()
-                    .stream()
-                    .map(TrackResponse::from)
-                    .toList();
-            return ResponseHandler.success(tracks);
-        } catch (IllegalArgumentException e) {
-            return ResponseHandler.badRequest(e.getMessage());
-        } catch (Exception e) {
-            return ResponseHandler.internalError();
+    public ResponseEntity<Object> findAll(@RequestParam(required = false) Integer artistid,
+                                          @RequestParam(required = false) Integer genreid) {
+
+        if (artistid == null && genreid == null) {
+            try {
+                val tracks = trackService.findAll()
+                        .stream()
+                        .map(TrackResponse::from)
+                        .toList();
+                return ResponseHandler.success(tracks);
+            } catch (IllegalArgumentException e) {
+                return ResponseHandler.badRequest(e.getMessage());
+            } catch (Exception e) {
+                return ResponseHandler.internalError();
+            }
+        } else {
+            try {
+                val tracks = trackService.findAllByAlbum_ArtistAndGenre(artistid, genreid)
+                        .stream()
+                        .map(TrackResponse::from)
+                        .toList();
+                return ResponseHandler.success(tracks);
+            } catch (IllegalArgumentException e) {
+                return ResponseHandler.badRequest(e.getMessage());
+            } catch (Exception e) {
+                return ResponseHandler.internalError();
+            }
         }
     }
 
